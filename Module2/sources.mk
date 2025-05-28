@@ -27,33 +27,32 @@
 # Defines source files and include directories per PLATFORM
 ifeq ($(PLATFORM),HOST)
 
-	# C source files for the HOST build
-	SOURCES = \
-		src/main.c \
-		src/memory.c
+  # C source files for the HOST build
+  SOURCES = \
+    src/main.c \
+    src/memory.c
 
-	# Include path for HOST
-	INCLUDES = \
-		-Iinclude/common
+  # Include path for HOST
+  INCLUDES = \
+    -Iinclude/common
 
 else ifeq ($(PLATFORM),MSP432)
 
-	# C source files for the MSP432 build
-	SOURCES = \
-		src/main.c \
-		src/memory.c \
-		src/system_msp432p401r.c \
-		src/startup_msp432p401r_gcc.c \
-		src/interrupts_msp432p401r_gcc.c
+  # C source files for the MSP432 build
+  SOURCES = \
+    src/main.c \
+    src/memory.c \
+    src/system_msp432p401r.c \
+    src/startup_msp432p401r_gcc.c \
+    src/interrupts_msp432p401r_gcc.c
 
-	# Include paths for MSP432
-	INCLUDES = \
-		-Iinclude/common \
-		-Iinclude/msp432 \
-		-Iinclude/CMSIS
+  # Include paths for MSP432
+  INCLUDES = \
+    -Iinclude/common \
+    -Iinclude/msp432 \
+    -Iinclude/CMSIS
 
 else
-	$(error PLATFORM must be set to HOST or MSP432)
-  
+  $(error PLATFORM must be set to HOST or MSP432)
 endif
 

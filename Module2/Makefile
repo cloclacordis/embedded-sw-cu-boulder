@@ -90,12 +90,22 @@ MAP = c1m2.map             # Final output name
 %.out.asm: %.out
 	objdump -d $< > $@
 
+# Proxy targets so `make main.o` works in project root
+main.o:
+	$(MAKE) src/main.o PLATFORM=$(PLATFORM)
+
+main.asm:
+	$(MAKE) src/main.asm PLATFORM=$(PLATFORM)
+
+main.i:
+	$(MAKE) src/main.i PLATFORM=$(PLATFORM)
+
 ### PHONY targets: compile-all, build, clean ###
 # build all objects without linking
 .PHONY: compile-all
 compile-all: $(OBJECTS)
 
-# build an executable file with a memory map, output the size
+# Build an executable file with a memory map, output the size
 .PHONY: build
 build: $(OUT)
 	$(SIZE) $<
@@ -106,7 +116,7 @@ $(OUT): $(OBJECTS)
 # Clean all generated artifacts
 .PHONY: clean
 clean:
-	rm -f $(OBJECTS) $(DEPS) *.i $(SOURCES:.c=.asm) $(OUT).asm $(OUT) $(MAP)
+	rm -f $(OBJECTS) $(DEPS) $(OUT) $(MAP) *.i *.asm
 	@echo "Clean complete"
 
 # Clean, build & generate .asm from .c and .out (for HOST only)
