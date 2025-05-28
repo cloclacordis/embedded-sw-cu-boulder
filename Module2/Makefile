@@ -59,7 +59,6 @@ else ifeq ($(PLATFORM),MSP432)
     
 else
     $(error PLATFORM must be set to HOST or MSP432)
-    
 endif
 
 # Preprocessor flags: include paths and platform defs
@@ -93,10 +92,8 @@ MAP = c1m2.map             # Final output name
 # Proxy targets so `make main.o` works in project root
 main.o:
 	$(MAKE) src/main.o PLATFORM=$(PLATFORM)
-
 main.asm:
 	$(MAKE) src/main.asm PLATFORM=$(PLATFORM)
-
 main.i:
 	$(MAKE) src/main.i PLATFORM=$(PLATFORM)
 
@@ -116,7 +113,8 @@ $(OUT): $(OBJECTS)
 # Clean all generated artifacts
 .PHONY: clean
 clean:
-	rm -f $(OBJECTS) $(DEPS) $(OUT) $(MAP) *.i *.asm
+	rm -f $(OBJECTS) $(DEPS) $(OUT) $(MAP) \
+	*.i *.asm src/*.asm src/*.i
 	@echo "Clean complete"
 
 # Clean, build & generate .asm from .c and .out (for HOST only)
