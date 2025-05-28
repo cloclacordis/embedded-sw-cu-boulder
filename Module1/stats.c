@@ -95,7 +95,6 @@ unsigned char find_minimum(unsigned char *data, unsigned int size) {
   return min;
 }
 
-
 void sort_array(unsigned char *data, unsigned int size) {
   // Bubble sort in descending order
   for (unsigned int i = 0; i < size - 1; i++) {
