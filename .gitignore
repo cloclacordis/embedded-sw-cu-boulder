@@ -1,0 +1,20 @@
+# Object and binary files
+*.o
+*.elf
+*.bin
+*.hex
+
+# Intermediate and listing files
+*.i
+*.d
+*.lst
+*.map
+
+# Build directories
+build/
+
+# Emacs backups
+*~
+.#*
+\#*\#
+
