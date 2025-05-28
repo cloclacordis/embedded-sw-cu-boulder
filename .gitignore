@@ -3,18 +3,25 @@
 *.elf
 *.bin
 *.hex
+*.out
 
 # Intermediate and listing files
 *.i
 *.d
 *.lst
 *.map
+*.asm
 
 # Build directories
 build/
 
-# Emacs backups
+# Emacs backups and temp files 1
 *~
 .#*
 \#*\#
+
+# Backup and temp files 2
+*.bak
+*.tmp
+*.swp
 
