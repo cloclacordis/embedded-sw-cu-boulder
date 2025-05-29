@@ -19,10 +19,10 @@
 #      clean         - clean all generated artifacts
 #      check         - clean + build + generate .asm from .c & .out
 #
-#      %.i           - preprocessed output from sources
+#      %.i           - preprocessed output from sources (via -E flag)
 #      %.asm         - assembly output from sources (via -S flag)
-#      %.o           - object output from sources
-#      %.out.asm     - disassembly of final executable using objdump
+#      %.o           - object output from sources (via compilation)
+#      %.out.asm     - disassembled output binary (via objdump)
 #
 # Platform Overrides:
 #      PLATFORM      selects toolchain and flags:

@@ -27,13 +27,13 @@ make [TARGET] PLATFORM=HOST|MSP432
 | `compile-all` | Compile all object files without linking                      |
 | `build`       | Compile and link, generate memory map                         |
 | `clean`       | Remove all generated build artifacts                          |
-| `check`       | Clean, build, and generate `.asm` and disassembly (HOST only) |
+| `check`       | Clean, build, and generate `.asm` and disassembly             |
 
 ### Toolchain Requirements
 
 * `make`
 * `gcc` (for HOST builds)
-* `arm-none-eabi-gcc`, `ld`, and `objdump` (for MSP432 builds)
+* `arm-none-eabi-gcc`, `ld`, and `arm-none-eabi-objdump` (for MSP432 builds)
 
 ### Platforms
 
