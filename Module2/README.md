@@ -1,4 +1,4 @@
-## Cross-Platform Build System (x86_64 / ARM Cortex-M4F)
+## Cross-Platform Build System (x86_64 / Cortex-M4F)
 
 This module implements a command-line build system using **GNU Make** and **GCC**, targeting both native (HOST) and embedded (MSP432) platforms.
 
