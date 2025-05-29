@@ -37,10 +37,10 @@ make [TARGET] PLATFORM=HOST|MSP432
 
 ### Platforms
 
-| PLATFORM | Toolchain         | Target Architecture |
-| -------- | ----------------- | ------------------- |
-| HOST     | gcc               | x86_64              |
-| MSP432   | arm-none-eabi-gcc | ARM Cortex-M4       |
+| PLATFORM | Toolchain           | Target Architecture |
+| -------- | ------------------- | ------------------- |
+| HOST     | `gcc`               | x86_64              |
+| MSP432   | `arm-none-eabi-gcc` | ARM Cortex-M4       |
 
 ### Notes
 
