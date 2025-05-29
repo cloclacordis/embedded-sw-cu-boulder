@@ -17,7 +17,7 @@
 #      compile-all   - build all objects without linking
 #      build         - build an executable file with a memory map, output the size
 #      clean         - clean all generated artifacts
-#      check         - clean + build + generate .asm from .c & .out (for HOST only)
+#      check         - clean + build + generate .asm from .c & .out
 #
 #      %.i           - preprocessed output from sources
 #      %.asm         - assembly output from sources (via -S flag)
@@ -47,6 +47,7 @@ ifeq ($(PLATFORM),HOST)
 	CFLAGS = -Wall -Werror -g -O0 -std=c99
 	LDFLAGS = # No special linker flags for HOST
 	SIZE = size
+	OBJDUMP = objdump
     
 else ifeq ($(PLATFORM),MSP432)
 	CC = arm-none-eabi-gcc
@@ -56,7 +57,8 @@ else ifeq ($(PLATFORM),MSP432)
 		 -mfloat-abi=hard -mfpu=fpv4-sp-d16 --specs=nosys.specs
 	LDFLAGS = -T msp432p401r.lds
 	SIZE = arm-none-eabi-size
-    
+	OBJDUMP = arm-none-eabi-objdump  
+
 else
     $(error PLATFORM must be set to HOST or MSP432)
 endif
@@ -85,9 +87,13 @@ MAP = c1m2.map             # Final output name
 %.o: %.c
 	$(CC) $(CPPFLAGS) $(CFLAGS) -MMD -MP -c $< -o $@
 
+# Compile interrupt handler without using FPU registers (to avoid FPU context save/restore)
+src/interrupts_msp432p401r_gcc.o: src/interrupts_msp432p401r_gcc.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -mgeneral-regs-only -MMD -MP -c $< -o $@
+
 # Disassemble final executable into .asm
 %.out.asm: %.out
-	objdump -d $< > $@
+	$(OBJDUMP) -d $< > $@
 
 # Proxy targets so `make main.o` works in project root
 main.o:
@@ -117,7 +123,7 @@ clean:
 	*.i *.asm src/*.asm src/*.i
 	@echo "Clean complete"
 
-# Clean, build & generate .asm from .c and .out (for HOST only)
+# Clean, build, generate .asm from .c and .out, and disassembly via objdump
 .PHONY: check
 
 ifeq ($(PLATFORM),HOST)
@@ -127,8 +133,17 @@ check:
 	$(MAKE) build PLATFORM=HOST
 	$(MAKE) src/main.asm PLATFORM=HOST
 	$(MAKE) c1m2.out.asm PLATFORM=HOST
+
+else ifeq ($(PLATFORM),MSP432)
+check:
+	@echo "Checking MSP432 build..."
+	$(MAKE) clean
+	$(MAKE) build PLATFORM=MSP432
+	$(MAKE) src/main.asm PLATFORM=MSP432
+	$(MAKE) c1m2.out.asm PLATFORM=MSP432
+
 else
 check:
-	$(error check target is supported for HOST only)
+	$(error check target is supported for HOST or MSP432 only)
 endif
 
