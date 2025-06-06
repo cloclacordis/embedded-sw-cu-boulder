@@ -25,3 +25,6 @@ build/
 *.tmp
 *.swp
 
+# Artifacts of Analysis (Module 3)
+Module3/symbols.txt
+

@@ -1,5 +1,5 @@
 <!--
-@file MAKETEST.md
+@file maketest.md
 @brief Makefile testing guide for cross-platform build system (HOST/MSP432)
 
 This guide describes how to test Makefile targets required for the build system, including optional targets and individual file rules.
