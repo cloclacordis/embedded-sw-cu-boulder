@@ -200,7 +200,7 @@ clean:
 
 	> ![Freehand Drawing.svg](assets/03-grep-text.png)
         
-	Similarly, by the `grep` we can find all other sections:
+	Similarly, we can locate other sections using `grep`:
 	```bash
 	grep '\.data'   main.map
 	grep '\.bss'    main.map
@@ -252,7 +252,7 @@ Below is a **sample table** of a few components. See columns: **Top segment / Su
 
 ---
 
-## Step 3 — Disassembly & Insights
+## Step 3 — Disassembly & Inspection
 
 ### 1. Objective of Step 3
 
@@ -295,7 +295,7 @@ Below is a **sample table** of a few components. See columns: **Top segment / Su
 
 - Disassembly was generated, and the entry point of `main` was verified.
 - The labels from `symbols.txt` were confirmed to match the actual addresses in `.text`.
-- The accuracy of the `nm`/`map` findings was confirmed: the raw assembly shows the function is indeed where expected.
+- The `nm` & `map` outputs were validated — the disassembled code confirms that the main function starts at the expected address.
 - A simple “safety check” was performed.
 
 ---
