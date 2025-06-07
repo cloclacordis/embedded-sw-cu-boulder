@@ -26,7 +26,7 @@ Clone this repository:
 
 ```bash
 git clone https://github.com/cloclacordis/embedded-sw-cu-boulder.git
-cd embedded-sw-cu-boulder
+cd embedded-sw-cu-boulder/Module3
 ```
 
 ### Building the Project
