@@ -90,7 +90,7 @@ clean:
 1. **Navigate to project folder:**
 
    ```bash
-   cd ~/.../Module3
+   # cd ~/.../Module3
    ls
    # Expected: main.c  misc.c  misc.h  msp432p401r.lds  Makefile
    ```
@@ -173,12 +173,12 @@ clean:
 	less symbols.txt
 	```
 	
-	*and note a few key entries*:
+	and note a few key entries:
 	> ![Freehand Drawing.svg](assets/02-less-symbols.png)
     
     ```
-	000000f8 00000058 T main        → .text (code)
-	00000150 00000074 T func        → .text (code)
+	000000f8 00000058 T main      → .text (code)
+	00000150 00000074 T func      → .text (code)
 	20000004 00000001 D g3          → .data (initialized global)
 	20000594 00000001 B g4          → .bss (uninitialized global)
 	20000590 00000004 b g1          → .bss (compiler-generated)
@@ -209,10 +209,10 @@ clean:
         
 	**Section ranges** (from the `grep` outputs):
 	```
-	.text   →  [0x00000000 , 0x00001378)
+	.text     →  [0x00000000 , 0x00001378)
 	.rodata →  [0x00001378 , 0x00001378 + 0x5c = 0x000013d4)
-	.data   →  [0x20000000 , 0x20000000 + 0x574 = 0x20000574)
-	.bss    →  [0x20000574 , 0x20000574 + 0x334 = 0x200008A8)
+	.data     →  [0x20000000 , 0x20000000 + 0x574 = 0x20000574)
+	.bss       →  [0x20000574 , 0x20000574 + 0x334 = 0x200008A8)
 	```
 	
 	**Cross-reference**. Find each symbol’s address in `symbols.txt` and see which range it falls into:
@@ -220,7 +220,7 @@ clean:
 	grep 'main' symbols.txt
 	```
 	
-	*shown*:
+	shown:
 
 	```
 	000000f8 00000058 T main
@@ -276,7 +276,7 @@ Below is a **sample table** of a few components. See columns: **Top segment / Su
    grep -A5 "<main>:" main.out.asm
    ```
 
-   *Get the output*:
+   Get the output:
 
    ```
    000000f8 <main>:
@@ -287,9 +287,9 @@ Below is a **sample table** of a few components. See columns: **Top segment / Su
      100:	603b      	str	r3, [r7, #0]
    ```
 
-> ![Freehand Drawing.svg](assets/04-grep-main-asm.png)
+    > ![Freehand Drawing.svg](assets/04-grep-main-asm.png)
 
-   > See that `main` starts exactly at the address `0xF8`.
+    > See that `main` starts exactly at the address `0xF8`.
 
 ### Step 3 Results
 
