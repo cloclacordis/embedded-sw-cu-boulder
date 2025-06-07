@@ -3,7 +3,7 @@
 # @brief   Build script for Module3: Memory Segments Control & Analysis on MSP432
 #
 # This Makefile compiles sources into an ELF, generates a memory map (main.map),
-# and supports two main targets: all (build) and clean.
+# and supports several targets: all, disasm, symbols, and clean.
 #
 # Platform: MSP432 (arm-none-eabi-gcc + msp432p401r.lds)
 #
@@ -30,9 +30,9 @@ OBJECTS := $(SOURCES:.c=.o)
 ELF     := main.elf
 
 # Phony targets
-.PHONY: all clean
+.PHONY: all disasm symbols clean
 
-# 'all' builds the ELF
+# 'all' builds the ELF and memory map
 all: $(ELF)
 
 # Link the final ELF & generate the map
@@ -44,7 +44,15 @@ $(ELF): $(OBJECTS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+# Disassemble the ELF into human-readable assembly
+disasm: $(ELF)
+	arm-none-eabi-objdump -d $(ELF) > main.out.asm
+
+# Extract symbol table from the ELF
+symbols: $(ELF)
+	arm-none-eabi-nm --print-size --radix=x $(ELF) > symbols.txt
+
 # 'clean' removes all generated artifacts
 clean:
-	rm -f $(OBJECTS) $(ELF) main.map
+	rm -f $(OBJECTS) $(ELF) main.map main.out.asm symbols.txt
 
