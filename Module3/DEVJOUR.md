@@ -242,7 +242,7 @@ Below is a **sample table** of a few components. See columns: **Top segment / Su
 | `func` | 0x00000150 | `.text`   | Code        | Text         | R/X    | Program  |
 | `g3`   | 0x20000004 | `.data`   | Data        | Data         | RW     | Program  |
 | `g4`   | 0x20000594 | `.bss`    | Data        | BSS          | RW     | Program  |
-| `g2`   | 0x0000139c | `.rodata` | Const       | Rodata       | R      | Program  |
+| `g2`   | 0x0000139c | `.rodata` | Code        | Const/Rodata | R      | Program  |
 | `g1`   | 0x20000590 | `.bss`    | Data        | BSS          | RW     | Program  |
 
 ### 4. Step 2 Results
