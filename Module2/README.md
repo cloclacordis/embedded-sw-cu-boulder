@@ -1,5 +1,7 @@
 ## Cross-Platform Build System (x86_64 / Cortex-M4F)
 
+> Module 2: Build system for HOST & MSP432 platforms.
+
 This module implements a command-line build system using **GNU Make** and **GCC**, targeting both native (HOST) and embedded (MSP432) platforms.
 
 ### Features

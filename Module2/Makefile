@@ -9,7 +9,7 @@
 #
 #*****************************************************************************
 #*****************************************************************************
-# Project Module2: Build system for HOST and MSP432 platforms
+# Project Module2: Build system for HOST & MSP432 platforms
 #
 # Use: make [TARGET] PLATFORM=HOST|MSP432
 #
@@ -17,7 +17,7 @@
 #      compile-all   - build all objects without linking
 #      build         - build an executable file with a memory map, output the size
 #      clean         - clean all generated artifacts
-#      check         - clean + build + generate .asm from .c & .out
+#      check         - clean + build + generate .asm from .c and .out
 #
 #      %.i           - preprocessed output from sources (via -E flag)
 #      %.asm         - assembly output from sources (via -S flag)
