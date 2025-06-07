@@ -215,6 +215,9 @@ clean:
 	.bss    ->  [0x20000574 , 0x20000574 + 0x334 = 0x200008A8)
 	```
 	
+    > 📝 **Nota bene:** These address ranges use a **half-open interval** format — `[start, end)`.
+    > That means the **start** address is **inclusive**, while the **end** address is **exclusive**.
+	
 	**Cross-reference**. Find each symbol’s address in `symbols.txt` and see which range it falls into:
 	```bash
 	grep 'main' symbols.txt
