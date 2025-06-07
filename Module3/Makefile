@@ -15,7 +15,7 @@
 # Source files
 SOURCES := main.c misc.c
 
-# Compiler & flags
+# Compiler and flags
 CC      := arm-none-eabi-gcc
 CFLAGS  := -Wall -Werror -g -O0 -std=c99 \
            -mcpu=cortex-m4 -mthumb -march=armv7e-m \
@@ -35,7 +35,7 @@ ELF     := main.elf
 # 'all' builds the ELF and memory map
 all: $(ELF)
 
-# Link the final ELF & generate the map
+# Link the final ELF and generate the map
 $(ELF): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LDFLAGS) -o $@
 	@$(SIZE) $@

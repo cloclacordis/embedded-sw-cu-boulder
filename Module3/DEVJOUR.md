@@ -1,6 +1,6 @@
 # Memory Segments Control & Analysis: DEVJOURNAL
 
-> This project was developed as part of the **Introduction to Embedded Systems Software & Development Environments** course (Module 3) by the University of Colorado Boulder.
+> This project was developed as part of the **Introduction to Embedded Systems Software and Development Environments** course (Module 3) by the University of Colorado Boulder.
 > 
 > **Date:** June 6, 2025  
 > **Author:** Timofei Alekseenko  
@@ -17,7 +17,7 @@
   - `misc.h`
   - `msp432p401r.lds`
 
-- **Requirements & Instructions**:
+- **Requirements and Instructions**:
   1. Analyze how code/data symbols are placed in memory.
   2. Generate a `.map` file.
   3. Use `nm`, `objdump`, etc., to inspect symbol addresses, sections, lifetimes, access.
@@ -30,12 +30,12 @@
 ### 2. Objective of Step 1
 
 - **Create a working Makefile** that:
-  - Compiles `main.c` & `misc.c` for MSP432 (Cortex-M4F).
-  - Links with the `.lds` script to produce `main.elf` & `main.map`.
+  - Compiles `main.c` and `misc.c` for MSP432 (Cortex-M4F).
+  - Links with the `.lds` script to produce `main.elf` and `main.map`.
   - Uses `--specs=nosys.specs` to stub out Newlib syscalls.
   - Provides a minimal “all” and “clean” target.
   
-> **Update**. As part of this step, **additional targets** were added to the *Makefile*, allowing automatic **generation of the symbol table** (`symbols.txt`) & **disassembly of the ELF file** (`main.out.asm`). These tasks, previously performed manually in the *terminal*, can now be executed with `make symbols` & `make disasm`.
+> **Update**. As part of this step, **additional targets** were added to the *Makefile*, allowing automatic **generation of the symbol table** (`symbols.txt`) and **disassembly of the ELF file** (`main.out.asm`). These tasks, previously performed manually in the *terminal*, can now be executed with `make symbols` and `make disasm`.
 
 ### 3. The Makefile (Updated)
 
@@ -43,7 +43,7 @@
 # Source files
 SOURCES := main.c misc.c
 
-# Compiler & flags
+# Compiler and flags
 CC      := arm-none-eabi-gcc
 CFLAGS  := -Wall -Werror -g -O0 -std=c99 \
            -mcpu=cortex-m4 -mthumb -march=armv7e-m \
@@ -63,7 +63,7 @@ ELF     := main.elf
 # 'all' builds the ELF and memory map
 all: $(ELF)
 
-# Link the final ELF & generate the map
+# Link the final ELF and generate the map
 $(ELF): $(OBJECTS)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LDFLAGS) -o $@
 	@$(SIZE) $@
@@ -177,15 +177,15 @@ clean:
 	> ![Freehand Drawing.svg](assets/02-less-symbols.png)
     
     ```
-	000000f8 00000058 T main      → .text (code)
-	00000150 00000074 T func      → .text (code)
-	20000004 00000001 D g3          → .data (initialized global)
-	20000594 00000001 B g4          → .bss (uninitialized global)
-	20000590 00000004 b g1          → .bss (compiler-generated)
-	0000139c 00000004 R g2          → .rodata (read-only constant)
+	000000f8 00000058 T main      -> .text (code)
+	00000150 00000074 T func      -> .text (code)
+	20000004 00000001 D g3        -> .data (initialized global)
+	20000594 00000001 B g4        -> .bss (uninitialized global)
+	20000590 00000004 b g1        -> .bss (compiler-generated)
+	0000139c 00000004 R g2        -> .rodata (read-only constant)
 	```
   
-	> These helped identify **Top segment, Subsegment, Access & Lifetime**.
+	> These helped identify **Top segment, Subsegment, Access, and Lifetime**.
 
 3.  **Inspect `main.map`:**
     
@@ -209,10 +209,10 @@ clean:
         
 	**Section ranges** (from the `grep` outputs):
 	```
-	.text     →  [0x00000000 , 0x00001378)
-	.rodata →  [0x00001378 , 0x00001378 + 0x5c = 0x000013d4)
-	.data     →  [0x20000000 , 0x20000000 + 0x574 = 0x20000574)
-	.bss       →  [0x20000574 , 0x20000574 + 0x334 = 0x200008A8)
+	.text   ->  [0x00000000 , 0x00001378)
+	.rodata ->  [0x00001378 , 0x00001378 + 0x5c = 0x000013d4)
+	.data   ->  [0x20000000 , 0x20000000 + 0x574 = 0x20000574)
+	.bss    ->  [0x20000574 , 0x20000574 + 0x334 = 0x200008A8)
 	```
 	
 	**Cross-reference**. Find each symbol’s address in `symbols.txt` and see which range it falls into:
@@ -226,7 +226,7 @@ clean:
 	000000f8 00000058 T main
 	```
 
-	**Therefore**, `main` → `.text`.
+	**Therefore**, `main` -> `.text`.
 	And so on *for each searching symbol*.
 
 ### 3. Initial Symbol Classification
@@ -239,7 +239,7 @@ Below is a **sample table** of a few components. See columns: **Top segment / Su
 | `func` | 0x00000150 | `.text`   | Code        | Text         | R/X    | Program  |
 | `g3`   | 0x20000004 | `.data`   | Data        | Data         | RW     | Program  |
 | `g4`   | 0x20000594 | `.bss`    | Data        | BSS          | RW     | Program  |
-| `g2`   | 0x0000139c | `.rodata` | Data/Const  | const/rodata | R      | Program  |
+| `g2`   | 0x0000139c | `.rodata` | Const       | Rodata       | R      | Program  |
 | `g1`   | 0x20000590 | `.bss`    | Data        | BSS          | RW     | Program  |
 
 ### 4. Step 2 Results
@@ -248,7 +248,7 @@ Below is a **sample table** of a few components. See columns: **Top segment / Su
 - **`main.map`** reviewed — section boundaries and addresses noted.
 - **Initial** (a sample) **classification table** drafted for a subset of symbols.
 
-> Symbols successfully *extracted & cross-referenced* against the `main.map` to classify them based on their location and access permissions.
+> Symbols successfully *extracted and cross-referenced* against the `main.map` to classify them based on their location and access permissions.
 
 ---
 
@@ -295,7 +295,7 @@ Below is a **sample table** of a few components. See columns: **Top segment / Su
 
 - Disassembly was generated, and the entry point of `main` was verified.
 - The labels from `symbols.txt` were confirmed to match the actual addresses in `.text`.
-- The `nm` & `map` outputs were validated — the disassembled code confirms that the main function starts at the expected address.
+- The `nm` and `map` outputs were validated — the disassembled code confirms that the main function starts at the expected address.
 - A simple “safety check” was performed.
 
 ---

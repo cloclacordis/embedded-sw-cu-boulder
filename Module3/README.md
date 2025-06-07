@@ -14,7 +14,7 @@ The project also involves analyzing each symbol's location, access permissions, 
 ### Project Details
 
 - **Platform:** MSP432 (Cortex-M4F)
-- **Languages:** Embedded C & Bash
+- **Languages:** Embedded C, Bash
 - **Tools:** `arm-none-eabi-gcc`, `make`, `nm`, `objdump`
 - **Memory analysis tasks:** 
     - Identifying memory segments (e.g., `.text`, `.data`, `.bss`, `.rodata`).
