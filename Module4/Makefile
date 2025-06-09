@@ -35,34 +35,57 @@
 
 include sources.mk
 
+# Platform-specific configurations
 ifeq ($(PLATFORM),HOST)
-  CC            = gcc
-  PLATFORM_DEFS = -DHOST -DCOURSE1 $(if $(VERBOSE),-DVERBOSE)
-  CFLAGS        = -Wall -Werror -g -O0 -std=c99
-  SIZE          = size
+  CC = gcc
+  PLATFORM_DEFS = -DHOST $(if $(VERBOSE),-DVERBOSE) $(if $(COURSE1),-DCOURSE1)
+  CFLAGS = -Wall -Werror -g -O0 -std=c99
+  LDFLAGS =
+  SIZE = size
 else ifeq ($(PLATFORM),MSP432)
-  CC            = arm-none-eabi-gcc
-  PLATFORM_DEFS = -DMSP432 -DCOURSE1 $(if $(VERBOSE),-DVERBOSE)
-  CFLAGS        = -Wall -Werror -g -O0 -std=c99 \
-                  -mcpu=cortex-m4 -mthumb -march=armv7e-m \
-                  -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
-                  -mgeneral-regs-only --specs=nosys.specs
-  LDFLAGS       = -T msp432p401r.lds
-  SIZE          = arm-none-eabi-size
+  CC = arm-none-eabi-gcc
+  PLATFORM_DEFS = -DMSP432 $(if $(VERBOSE),-DVERBOSE) $(if $(COURSE1),-DCOURSE1)
+  CFLAGS = -Wall -Werror -g -O0 -std=c99 \
+           -mcpu=cortex-m4 -mthumb -march=armv7e-m \
+           -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
+           --specs=nosys.specs
+  LDFLAGS = -T msp432p401r.lds
+  SIZE = arm-none-eabi-size
 else
-  $(error PLATFORM must be set to HOST or MSP432)
+  $(error PLATFORM must be HOST or MSP432)
+endif
+
+# Filter out MSP432-specific files for HOST platform
+ifeq ($(PLATFORM),HOST)
+  SOURCES := $(filter-out src/interrupts_msp432p401r_gcc.c, $(SOURCES))
+  SOURCES := $(filter-out src/startup_msp432p401r_gcc.c, $(SOURCES))
+  SOURCES := $(filter-out src/system_msp432p401r.c, $(SOURCES))
 endif
 
 CPPFLAGS = $(INCLUDES) $(PLATFORM_DEFS)
-OBJECTS  = $(SOURCES:.c=.o)
-OUT      = course1.out
+OBJECTS = $(SOURCES:.c=.o)
+OUT = course1.out
 
-.PHONY: build clean
+# Default target
+.PHONY: build
+build: $(OUT)
 
-build: $(OBJECTS)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $^ $(LDFLAGS) -o $(OUT)
-	$(SIZE) $(OUT)
+$(OUT): $(OBJECTS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
+	$(SIZE) $@
 
+%.o: %.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+
+# Special rule for MSP432 interrupt handler
+src/interrupts_msp432p401r_gcc.o: src/interrupts_msp432p401r_gcc.c
+	$(CC) $(CPPFLAGS) $(CFLAGS) -mgeneral-regs-only -c $< -o $@
+
+.PHONY: clean
 clean:
-	rm -f $(OBJECTS) $(OUT) *.i *.asm
+	rm -f $(OBJECTS) $(OUT) *.i *.asm *.d
 
+.PHONY: test
+test:
+	$(MAKE) clean
+	$(MAKE) PLATFORM=HOST COURSE1=1 VERBOSE=1
