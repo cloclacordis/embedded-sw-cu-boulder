@@ -8,14 +8,17 @@
  * misuse of this material. 
  *
  *****************************************************************************/
-/**
+/******************************************************************************
  * @file course1.h 
  * @brief This file is to be used to course 1 final assessment.
  *
  * @author Alex Fosdick
  * @date April 2, 2017
  *
- */
+ * @modified on June 9, 2025 by Timofei Alekseenko:
+ * Added definitions for BASE_10 and BASE_16 to be used in course1.c file.
+ *
+*****************************************************************************/
 #ifndef __COURSE1_H__
 #define __COURSE1_H__
 
@@ -31,11 +34,14 @@
 #define TEST_NO_ERROR       (0)
 #define TESTCOUNT           (8)
 
+#define BASE_10 10
+#define BASE_16 16
+
 /**
  * @brief function to run course1 materials
  * 
  * This function calls some various simple tests that you can run to test 
- * your code for the course 1 final assesment. The contents of these functions
+ * your code for the course 1 final assessment. The contents of these functions
  * have been provided. 
  *
  * @return void
@@ -66,7 +72,7 @@ int8_t test_data2();
  * @brief function to test the non-overlapped memmove operation
  * 
  * This function calls the memmove routine with two sets of data that do not
- * over lap in anyway. This function should print that a move worked correctly
+ * overlap in anyway. This function should print that a move worked correctly
  * for a move from source to destination.
  *
  * @return void
@@ -77,7 +83,7 @@ int8_t test_memmove1();
  * @brief function to test an overlapped Memmove operation Part 1
  * 
  * This function calls the memmove routine with two sets of data that not
- * over lap. Overlap exists at the start of the destination and the end of the
+ * overlap. Overlap exists at the start of the destination and the end of the
  * source pointers. This function should print that a move worked correctly
  * for a move from source to destination regardless of overlap.
  *
@@ -89,7 +95,7 @@ int8_t test_memmove2();
  * @brief function to run course1 memmove overlapped test
  * 
  * This function calls the memmove routine with two sets of data that not
- * over lap. Overlap exists at the start of the source and the end of the
+ * overlap. Overlap exists at the start of the source and the end of the
  * destination pointers. This function should print that a move worked correctly
  * for a move from source to destination regardless of overlap.
  *
@@ -110,7 +116,7 @@ int8_t test_memcopy();
 /**
  * @brief function to test the memset and memzero functionality
  * 
- * This function calls the memset and memzero functions. This shoudl zero out
+ * This function calls the memset and memzero functions. This shoud zero out
  * the bytes from [] to []. This should set the bytes [] to [] with 0xFF.
  *
  * @return void
@@ -120,7 +126,7 @@ int8_t test_memset();
 /**
  * @brief function to test the reverse functionality
  * 
- * This function calls the my_reverse function to see if a give set of ASCII
+ * This function calls the my_reverse function to see if a given set of ASCII
  * characters will properly reverse.
  *
  * @return void

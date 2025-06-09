@@ -33,7 +33,7 @@
 /**
  * @brief Application entry point for statistics demo
  */
-void main() {
+/* void main() {
 
   unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
                               114, 88,   45,  76, 123,  87,  25,  23,
@@ -41,7 +41,7 @@ void main() {
                               201,   6,  12,  60,   8,   2,   5,  67,
                                 7,  87, 250, 230,  99,   3, 100,  90};
 
-  /* Print original array if VERBOSE */
+  // Print original array if VERBOSE
 
   PRINTF("Original array:\n");
   print_array(test, SIZE);
@@ -52,6 +52,7 @@ void main() {
   
   print_statistics(test, SIZE);
 }
+*/
 
 /**
  * @brief Print statistics: max, min, mean, median

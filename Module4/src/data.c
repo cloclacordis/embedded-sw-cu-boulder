@@ -63,7 +63,7 @@ uint32_t my_itoa(int32_t data, uint8_t * ptr, uint32_t base) {
   return len;
 }
 
-int32_t my_atoi(uint8_t * ptr, uint8_t digits, uint8_t base) {
+int32_t my_atoi(uint8_t * ptr, uint8_t digits, uint32_t base) {
   int32_t result = 0;
   uint8_t * p = ptr;
   uint8_t negative = 0;

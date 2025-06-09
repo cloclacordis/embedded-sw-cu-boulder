@@ -167,7 +167,7 @@ int8_t test_memmove3() {
   uint8_t * ptra;
   uint8_t * ptrb;
 
-  PRINTF("test_memove3() - OVERLAP END OF DEST BEGINNING OF SRC\n");
+  PRINTF("test_memmove3() - OVERLAP END OF DEST BEGINNING OF SRC\n");
   set = (uint8_t*)reserve_words( MEM_SET_SIZE_W);
 
   if (! set ) 

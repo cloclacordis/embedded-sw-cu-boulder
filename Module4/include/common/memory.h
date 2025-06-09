@@ -155,7 +155,7 @@ int32_t * reserve_words(size_t length);
  * @brief Free a buffer previously allocated by reserve_words.
  * @param src Pointer returned by reserve_words
  */
-void free_words(int32_t * src);
+void free_words(uint32_t * src);
 
 #endif /* __MEMORY_H__ */
 

@@ -36,26 +36,26 @@
 include sources.mk
 
 ifeq ($(PLATFORM),HOST)
-  CC = gcc
-  PLATFORM_DEFS = -DHOST -DCOURSE1
-  CFLAGS = -Wall -Werror -g -O0 -std=c99
-  SIZE = size
+  CC            = gcc
+  PLATFORM_DEFS = -DHOST -DCOURSE1 $(if $(VERBOSE),-DVERBOSE)
+  CFLAGS        = -Wall -Werror -g -O0 -std=c99
+  SIZE          = size
 else ifeq ($(PLATFORM),MSP432)
-  CC = arm-none-eabi-gcc
-  PLATFORM_DEFS = -DMSP432 -DCOURSE1
-  CFLAGS = -Wall -Werror -g -O0 -std=c99 \
-           -mcpu=cortex-m4 -mthumb -march=armv7e-m \
-           -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
-           --specs=nosys.specs
-  LDFLAGS = -T msp432p401r.lds
-  SIZE = arm-none-eabi-size
+  CC            = arm-none-eabi-gcc
+  PLATFORM_DEFS = -DMSP432 -DCOURSE1 $(if $(VERBOSE),-DVERBOSE)
+  CFLAGS        = -Wall -Werror -g -O0 -std=c99 \
+                  -mcpu=cortex-m4 -mthumb -march=armv7e-m \
+                  -mfloat-abi=hard -mfpu=fpv4-sp-d16 \
+                  -mgeneral-regs-only --specs=nosys.specs
+  LDFLAGS       = -T msp432p401r.lds
+  SIZE          = arm-none-eabi-size
 else
-    $(error PLATFORM must be set to HOST or MSP432)
+  $(error PLATFORM must be set to HOST or MSP432)
 endif
 
 CPPFLAGS = $(INCLUDES) $(PLATFORM_DEFS)
-OBJECTS = $(SOURCES:.c=.o)
-OUT     = course1.out
+OBJECTS  = $(SOURCES:.c=.o)
+OUT      = course1.out
 
 .PHONY: build clean
 
