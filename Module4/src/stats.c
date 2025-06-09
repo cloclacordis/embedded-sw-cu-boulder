@@ -10,29 +10,29 @@
  *****************************************************************************/
 /*****************************************************************************
  * @file stats.c 
- * @brief Implementation of statistical array analysis
+ * @brief Implementation of statistical array analysis with optional debug print
  *
  * This file contains functions to analyze unsigned char arrays:
- * - Calculate statistics (min, max, mean, median)
+ * - Calculate statistics (max, min, mean, median)
  * - Sort arrays in descending order
- * - Print formatted results
- * All statistics are rounded down to nearest integer.
+ * - Print formatted results (only when VERBOSE is defined)
  *
  * This code was written as part of the Introduction to Embedded Systems
  * Software and Development Environments course (University of Colorado Boulder).
  *
  * @author Timofei Alekseenko
- * @date May 20, 2025
+ * @date June 9, 2025 (modified)
  *
  *****************************************************************************/
 
-#include <stdio.h>
 #include "stats.h"
+#include "platform.h"
 
-/* ========== Size of the Data Set ========== */
+#define SIZE (40) // Size of the Data Set
 
-#define SIZE (40)
-
+/**
+ * @brief Application entry point for statistics demo
+ */
 void main() {
 
   unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
@@ -41,33 +41,39 @@ void main() {
                               201,   6,  12,  60,   8,   2,   5,  67,
                                 7,  87, 250, 230,  99,   3, 100,  90};
 
-  /* ========== Printing Functions ========== */
+  /* Print original array if VERBOSE */
 
-  printf("Original array:\n");
+  PRINTF("Original array:\n");
   print_array(test, SIZE);
   
   sort_array(test, SIZE);
-  printf("\nSorted array:\n");
+  PRINTF("\nSorted array:\n");
   print_array(test, SIZE);
   
   print_statistics(test, SIZE);
 }
 
-/* ========== Function Implementations ========== */
-
+/**
+ * @brief Print statistics: max, min, mean, median
+ */
 void print_statistics(unsigned char *data, unsigned int size) {
-  printf("\nStatistics:\n");
-  printf("Maximum: %d\n", find_maximum(data, size));
-  printf("Minimum: %d\n", find_minimum(data, size));
-  printf("Mean: %d\n", find_mean(data, size));
-  printf("Median: %d\n", find_median(data, size));
+  PRINTF("\nStatistics:\n");
+  PRINTF("Maximum: %d\n", find_maximum(data, size));
+  PRINTF("Minimum: %d\n", find_minimum(data, size));
+  PRINTF("Mean: %d\n", find_mean(data, size));
+  PRINTF("Median: %d\n", find_median(data, size));
 }
 
+/**
+ * @brief Print array elements in rows of 8 when VERBOSE is enabled
+ */
 void print_array(unsigned char *data, unsigned int size) {
+#ifdef VERBOSE
   for (unsigned int i = 0; i < size; i++) {
-    printf("%3d ", data[i]);
-    if ((i + 1) % 8 == 0) printf("\n"); // 8 elements per line
+    PRINTF("%3d ", data[i]);
+    if ((i + 1) % 8 == 0) PRINTF("\n");
   }
+#endif
 }
 
 unsigned char find_median(unsigned char *data, unsigned int size) {
@@ -95,8 +101,8 @@ unsigned char find_minimum(unsigned char *data, unsigned int size) {
   return min;
 }
 
+/* Bubble sort in descending order */
 void sort_array(unsigned char *data, unsigned int size) {
-  // Bubble sort in descending order
   for (unsigned int i = 0; i < size - 1; i++) {
     for (unsigned int j = 0; j < size - i - 1; j++) {
       if (data[j] < data[j + 1]) {

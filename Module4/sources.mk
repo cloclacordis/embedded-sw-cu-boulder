@@ -20,7 +20,7 @@
 # Software and Development Environments course (University of Colorado Boulder).
 #
 # @author Timofei Alekseenko
-# @date May 28, 2025
+# @date June 9, 2025 (modified)
 #
 #*****************************************************************************
 
@@ -30,7 +30,10 @@ ifeq ($(PLATFORM),HOST)
   # C source files for the HOST build
   SOURCES = \
     src/main.c \
-    src/memory.c
+    src/memory.c \
+    src/stats.c \
+    src/data.c \
+    src/course1.c
 
   # Include path for HOST
   INCLUDES = \
@@ -42,6 +45,9 @@ else ifeq ($(PLATFORM),MSP432)
   SOURCES = \
     src/main.c \
     src/memory.c \
+    src/stats.c \
+    src/data.c \
+    src/course1.c \
     src/system_msp432p401r.c \
     src/startup_msp432p401r_gcc.c \
     src/interrupts_msp432p401r_gcc.c
