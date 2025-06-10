@@ -71,8 +71,8 @@ CPPFLAGS = $(INCLUDES) $(PLATFORM_DEFS)
 # Derive object and dependency filenames from SOURCES
 OBJECTS = $(SOURCES:.c=.o) # For each .c file, generate corresponding .o files
 DEPS = $(SOURCES:.c=.d)    # For each .c file, generate corresponding .d files
-OUT = c1m2.out             # Final output name
-MAP = c1m2.map             # Final output name
+OUT = c1m4.out             # Final output name
+MAP = c1m4.map             # Final output name
 
 # Include generated dependency files (if present)
 -include $(DEPS)
@@ -134,7 +134,7 @@ check:
 	$(MAKE) clean
 	$(MAKE) build PLATFORM=HOST
 	$(MAKE) src/main.asm PLATFORM=HOST
-	$(MAKE) c1m2.out.asm PLATFORM=HOST
+	$(MAKE) c1m4.out.asm PLATFORM=HOST
 
 else ifeq ($(PLATFORM),MSP432)
 check:
@@ -142,7 +142,7 @@ check:
 	$(MAKE) clean
 	$(MAKE) build PLATFORM=MSP432
 	$(MAKE) src/main.asm PLATFORM=MSP432
-	$(MAKE) c1m2.out.asm PLATFORM=MSP432
+	$(MAKE) c1m4.out.asm PLATFORM=MSP432
 
 else
 check:
