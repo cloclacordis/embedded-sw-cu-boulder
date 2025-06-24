@@ -7,9 +7,7 @@ For more information, see:
 - [Course overview](https://www.cu.edu/coltt/introduction-embedded-systems-software-and-development-environments)
 - [Course page](https://www.coursera.org/learn/introduction-embedded-systems)
 
----
-
-### 📄 License
+### License
 
 This repository includes files from different sources with distinct licensing terms:  
 - **Original course materials** authored by *Alex Fosdick* (University of Colorado Boulder):  
